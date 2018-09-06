@@ -13,6 +13,9 @@ $ sudo apt-get install -y nodejs`
 Une fois node installé, 
 `$ sudo npm install -g polymer-cli@1.0.0 --unsafe-perm'`
 
+Pour tester l'installation executer
+`$ polymer`
+
 ## Initialiser le modèle du composant
 
 Créer un dossier nommé comme le futur composant. Pour rappel les composants web doivent avoir un tiret dans leurs noms. 
