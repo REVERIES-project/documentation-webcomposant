@@ -5,9 +5,13 @@
 
 polymer-cli est un outil en ligne de commande pour simplifier la création de composants Polymer. 
 
-Il vous faudra installer la version 1.0.0 (qui n'est pas la dernière version), pour cela 
+Il vous faudra installer la version 1.0.0 (qui n'est pas la dernière version), pour cela, depuis une Debian 8 ou un Ubuntu Xenial, installer node v8.x
 
-`$ npm install -g polymer-cli#1.0.0'`
+`$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+$ sudo apt-get install -y nodejs`
+
+Une fois node installé, 
+`$ sudo npm install -g polymer-cli@1.0.0 --unsafe-perm'`
 
 ## Initialiser le modèle du composant
 
