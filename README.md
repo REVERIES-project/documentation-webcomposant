@@ -13,7 +13,9 @@ Il vous faudra installer la version 1.0.0 (qui n'est pas la dernière version), 
 Créer un dossier nommé comme le futur composant. Pour rappel les composants web doivent avoir un tiret dans leurs noms. 
 
 `$ mkdir my-component`
+
 `$ cd my-component`
+
 `$ polymer init`
 
 La dernière commande déclenche une série d'interaction vous permettant de nommer le composant, de lui donner une description, etc.
@@ -32,23 +34,61 @@ Les tags correspondent aux versions successives du composant. Par defaut, Bower 
 
 `$ git tag -a v0.9.0 -m "0.9.0"`
 
+Publier ensuite le tag sur github :
+
+`$ git push --tags`
+
+Une fois publié, les tags apparaissent dans l'interface github en utilisant le bouton dropdown "Branch : master", la liste des tags publiés apparait à coté de la liste des branches.
+
+Vous pouvez accedez au tag courant (utile lors de mise à jour successive) via 
+
+`$ git tag`
+
+
 ### Réaliser une page de documentation/démo pour le web composant
 
 Polymer permet d'automatiser ce processus; je recommande d'utiliser le script gp.sh pour éviter les complications. 
 
-Utilisation : une fois le composant sur github, créer un dossier temp. Depuis ce dossier, executer 
-`sh gp.sh REVERIES-project my-component`
+Ce script est situé dans le repository documentation-webcomposant que vous consultez.
+
+Récupérer le script et le rendre executable:
+
+`$ git clone https://github.com/REVERIES-project/documentation-webcomposant.git`
+
+`$ cd documentation-webcomposant`
+
+`$ sudo chmod u+x gp.sh`
+
+
+**Utilisation** : une fois le composant sur github, créer un dossier temp. Depuis ce dossier, executer :
+
+`../pathToGp/gp.sh REVERIES-project my-component`
+
+Il vous sera demandé vos identifiants et une page *gh-page* (spécifique à github) sera créée avec la démo du composant.
+
+L'URL de cette page est du type : https://reveries-project.github.io/my-component
 
 ## Intégration des composants créés dans MOGGLE et game-player
 
-
-
+### Installation de l'environnement de dev
 L'objectif de la création de composant packager par Bower est d'employer ces composants en production. 
 
 Pour faire fonctionner MOGGLE il est nécéssaire de disposer d'une version 3.6.X de MongoDB
-`$ echo "deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.6 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list`
+
+Pour ubuntu et ses variantes (mint...), il est nécessaire la clée GPG qui garantie l'authenticité du package:
+
+`$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5`
+
+Ajoutez ensuite le package mongoDB multiverse ubuntu à la liste des sources : 
+
+`$ echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" \`
+`| sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list`
+
+Recharger la liste des paquets
 
 `$ sudo apt update`
+
+Enfin, installer mongodb :
 
 `$ sudo apt-get install -y mongodb-org`
 
@@ -59,21 +99,32 @@ Puis lancer la ligne de commande mongo
 
 Vous aurez aussi besoin du gestionnaire de processus PM2, l'installation est plus simple
 `npm install pm2@latest -g`
+
 Tester avec la commande `pm2`
 
+### Execution de MOGGLE en localhost
 
 
 Pour cela il est nécéssaire de  : 
+
+* Lancer le démon mongod si ce n'est pas le cas 
+ * `$ sudo service mongod start`
+
 * Faire un checkout de la dernière version de MOGGLE 
- * `git clone https://github.com/gick/reveries-authoring`
+ * `$ git clone https://github.com/gick/reveries-authoring`
 
 * Installer les dépendances pour la partie serveur 
- * `cd reveries-authoring`
- * `npm install`
+ * `$ cd reveries-authoring`
+ * `$ npm install`
+
+* Installer les dépendances pour la partie client 
+ * `$ cd authoring-client`
+ * `$ bower install`
+
 
 * Modifier le fichier bower.json pour référencer le nouveau composant
  * `nouveau-composant": "REVERIES-project/nouveau-composant`
- * `bower install`
+ * `bower update`
 
 * Au sein du code, remplacer les références à nouveau-composant par des références à la version bower de ce composant
 
