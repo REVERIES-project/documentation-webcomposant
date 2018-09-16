@@ -1,10 +1,33 @@
-# Création et utilisation des web composants pour MOGGLE et game player
+# Création de web components pour MOGGLE
+
+Cette page décrit le processus à suivre pour l'implémentation de composants réutilisables pour MOGGLE. Toutes les étapes ne sont pas indispensables, il est cependant recommandé de les suivre pour la maintenance du code.
 
 ## Configuration initiale 
 
 [Configurer le poste de dev](https://github.com/REVERIES-project/documentation-webcomposant/wiki/Configuration-pour-le-d%C3%A9veloppement)
 
-### Réaliser l'implémentation
+### Implémentation du composant
+
+L'implémentation est réalisée à partir du template généré par polymer-cli. Commencer par créer un répertoire portant le nom du composant, le nom doit contenir un tiret -, par exemple `my-component` (non indispensable pour Polymer mais la présence du tiret est obligatoire dans la norme W3C).
+
+`$ mkdir my-component`
+`$ cd my-component`
+
+
+
+Lancer ensuite polymer-cli et choisir l'option *polymer-1-element - A simple Polymer 1.0 element template*
+
+`$ polymer init`
+
+Les options par défaut sont suffisantes, confirmer avec la touche Enter. Un template minimal de composant est généré, le fichier *my-component.html* est ici le plus important, c'est lui que l'on modifiera pour obtenir le comportement, l'apparence et l'interface exposée par le composant.
+
+Le composant peut être testé localement via la commande :
+
+`$ polymer serve`
+
+Executé depuis le répertoire racine *my-component*.
+
+Si le composant requiert des dépendances, ces dernières seront installé via Bower. 
 
 ### Publier le composant sur github sous https://github.com/REVERIES-project
 
@@ -52,37 +75,6 @@ L'URL de cette page est du type : https://reveries-project.github.io/my-componen
 
 ## Intégration des composants créés dans MOGGLE et game-player
 
-### Installation de l'environnement de dev
-L'objectif de la création de composant packager par Bower est d'employer ces composants en production. 
-
-Pour faire fonctionner MOGGLE il est nécéssaire de disposer d'une version 3.6.X de MongoDB
-
-Pour ubuntu et ses variantes (mint...), il est nécessaire la clée GPG qui garantie l'authenticité du package:
-
-`$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5`
-
-Ajoutez ensuite le package mongoDB multiverse ubuntu à la liste des sources : 
-
-`$ echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" \`
-`| sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list`
-
-Recharger la liste des paquets
-
-`$ sudo apt update`
-
-Enfin, installer mongodb :
-
-`$ sudo apt-get install -y mongodb-org`
-
-Pour tester l'installation de mongodb, lancer le démon 
-`sudo service mongod start`
-Puis lancer la ligne de commande mongo
-`mongo`
-
-Vous aurez aussi besoin du gestionnaire de processus PM2, l'installation est plus simple
-`npm install pm2@latest -g`
-
-Tester avec la commande `pm2`
 
 ### Execution de MOGGLE en localhost
 
@@ -105,11 +97,14 @@ Pour cela il est nécéssaire de  :
 
 
 * Modifier le fichier bower.json pour référencer le nouveau composant
- * `nouveau-composant": "REVERIES-project/nouveau-composant`
+ * `my-component": "REVERIES-project/my-component`
  * `bower update`
 
-* Au sein du code, remplacer les références à nouveau-composant par des références à la version bower de ce composant
-
+* Si le nouveau composant est une version Bower d'un composant existant
+ * Supprimer le fichier *my-component.html* présent sous le répertoire *reveries-authoring/authoring-client/src*. 
+ * Dans le répertoire *reveries-authoring/authoring-client/src*, chercher et remplacer les imports html de l'ancienne version par ceux de la version Bower. 
+  * Faire une recherche pour *my-component* dans l'ensemble des fichiers *reveries-authoring/authoring-client/src*
+  * Pour chaque import de la forme `<link rel="import" href=".../my-component.html">`, remplacer l'import sous la forme `<link rel="import" href="../polymer/polymer.html"><link rel="import" href="../bower-components/my-component/my-component.html">`
 * Tester la nouvelle version
  * `pm2 start ecosystem.config.js`
 
