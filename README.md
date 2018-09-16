@@ -1,26 +1,8 @@
 # Création et utilisation des web composants pour MOGGLE et game player
 
-## Création des composants
-### Installer polymer-cli
+## Configuration initiale 
 
-polymer-cli est un outil en ligne de commande pour simplifier la création de composants Polymer. 
-
-Il vous faudra installer la version 1.0.0 (qui n'est pas la dernière version), pour cela 
-'npm install -g polymer-cli#1.0.0'
-
-### Initialiser le modèle du composant
-
-Créer un dossier nommé comme le futur composant. Pour rappel les composants web doivent avoir un tiret dans leurs noms. 
-
-`$ mkdir my-component`
-
-`$ cd my-component`
-
-`$ polymer init`
-
-La dernière commande déclenche une série d'interaction vous permettant de nommer le composant, de lui donner une description, etc.
-
-Après quoi le dossier est peuplé par des fichiers constituants le squellete du composant.
+[Configurer le poste de dev](https://github.com/REVERIES-project/documentation-webcomposant/wiki/Configuration-pour-le-d%C3%A9veloppement)
 
 ### Réaliser l'implémentation
 
