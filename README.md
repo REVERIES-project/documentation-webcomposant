@@ -52,26 +52,7 @@ Vous pouvez accedez au tag courant (utile lors de mise à jour successive) via
 
 ### Réaliser une page de documentation/démo pour le web composant
 
-Polymer permet d'automatiser ce processus; je recommande d'utiliser le script gp.sh pour éviter les complications. 
-
-Ce script est situé dans le repository documentation-webcomposant que vous consultez.
-
-Récupérer le script et le rendre executable:
-
-`$ git clone https://github.com/REVERIES-project/documentation-webcomposant.git`
-
-`$ cd documentation-webcomposant`
-
-`$ sudo chmod u+x gp.sh`
-
-
-**Utilisation** : une fois le composant sur github, créer un dossier temp. Depuis ce dossier, executer :
-
-`../pathToGp/gp.sh REVERIES-project my-component`
-
-Il vous sera demandé vos identifiants et une page *gh-page* (spécifique à github) sera créée avec la démo du composant.
-
-L'URL de cette page est du type : https://reveries-project.github.io/my-component
+[Documenter et publier une page de démonstration](https://github.com/REVERIES-project/documentation-webcomposant/wiki/Documenter-et-publier-une-d%C3%A9mo-d'un-composant)
 
 ## Intégration des composants créés dans MOGGLE et game-player
 
